@@ -60,16 +60,16 @@ module ufrj-mtd{
 			type yang:date-and-time;
 			mandatory true;
 			description 
-				"This is intended to be when the current MUD file
-				was generated.  MUD managers SHOULD NOT check
+				"This is intended to be when the current MTD file
+				was generated.  MTD managers SHOULD NOT check
 				for updates between this time plus cache validity.";
 		}
 
 		leaf mtd-signature {
 			type inet:uri;
 			description 
-				"A URI that resolves to a signature as described in 
-				this specification.";
+				"A URI that resolves to a signature to verify the 
+				autenticity of this file.";
 	   }
 
 		leaf cache-validity {
@@ -80,7 +80,7 @@ module ufrj-mtd{
 			units "hours";
 			default "48";
 			description 
-				"The information retrieved from the MUD server is
+				"The information retrieved from the MTD server is
 				valid for these many hours, after which it should be 
 				refreshed. N.B., MTD manager implementations need not
 				 discard MTD files beyond this period.";
@@ -89,12 +89,12 @@ module ufrj-mtd{
 		container attack-descriptions {
 			description 
 				"This container has the descriptions of the
-				attacks	that can be performed against or from the 
-				devices";
+				attacks	that can be performed against or from the IoT
+				 devices";
 
 			container to-device-attacks {
 				description 
-					"The set of traffics that are performed by the 
+					"The set of malicious traffics performed by the 
 					infected device";
 
 				uses attack-lists;
@@ -102,8 +102,8 @@ module ufrj-mtd{
 
 			container from-device-attacks {
 				description 
-					"The set of traffics that are performed against 
-					the infected device";
+					"The set of malicious traffics performed 
+					addressing the target device";
 
 				uses attack-lists;
 			}
@@ -120,20 +120,21 @@ module ufrj-mtd{
 
 	grouping attack-lists {
 		description 
-			"GIVE A DESCRIPTION";
+			"A grouping for acess lists of malicious traffic related 
+			in a context of attacks.";
 
 		container attack-lists {
 			description 
-				"The access lists of the attacks focused to or from 
-				the devices";
+				"The access lists of the attack's malicious traffics 
+				targeting or departing from the local IoT devices,";
 
 			list attack-list {
 				key "name";
 
 				description 
-					"Each entry on this list refers to an attack 
-					defined by an ACL that should present the overall
-					 network communication of the attack.";
+					"Each entry on this list refers to an malicious 
+					traffic defined by an ACL that should present the
+					 overall network communication of the attack.";
 
 				leaf name {
 					type leafref{
@@ -157,19 +158,21 @@ module ufrj-mtd{
 
 	grouping malwares-list {
 		description 
-			"GIVE A DESCRIPTION";
+			"A grouping for acess lists of malicious traffic related 
+			in a context of malwares.";
 
 		list malwares-list {
 			key "name";
 
 			description 
-				"GIVE A DESCRIPTION";
+				"The access lists of the malware's malicious traffics 
+				targeting or departing from the local IoT devices,";
 
 			leaf name {
 				type string;
 
 				description
-					"The name of the Malware for this entry.";
+					"The name of the Malware for each entry.";
 			}
 
 			leaf-list specific-devices {
@@ -182,23 +185,24 @@ module ufrj-mtd{
 
 			container to-device-attacks {
 				description 
-					"The set of traffics that are performed by the 
-					infected device";
+					"The set of attack traffics performed by the 
+					infected IoT device";
 
 				uses attack-lists;
 			}
 
 			container from-device-attacks {
 				description 
-					"The set of traffics that are performed against 
-					the infected device";
+					"The set of attack traffics performed targeting 
+					the infected IoT device";
 
 				uses attack-lists;
 			}
 
 			container not-attack-traffics {
 				description 
-					"GIVE A DESCRIPTION";
+					"Container to group all not attack traffics 
+					related to the malware";
 
 				list to-device-non-attack-traffic {
 					key "name";
@@ -209,7 +213,9 @@ module ufrj-mtd{
 						}
 
 						description 
-							"GIVE A DESCRIPTION";
+							"The set of not attack traffics 
+							related to the malware performed by the 
+							infected IoT device";
 					}
 				}
 
@@ -222,7 +228,9 @@ module ufrj-mtd{
 						}
 
 						description 
-							"GIVE A DESCRIPTION";
+							"The set of not attack traffics 
+							related to the malware trageting the 
+							infected IoT device";
 					}
 				}
 			}
@@ -231,7 +239,7 @@ module ufrj-mtd{
 
 	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
 		description
-			"adding abstractions to avoid the need of IP addresses.";
+			"adding abstraction to avoid the need of IP addresses.";
 		container mtd {
 			description
 				"MTD-specific match.";
@@ -246,15 +254,15 @@ module ufrj-mtd{
 		}
 	}
 
-	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" + "/acl:l4/acl:tcp/acl:tcp" {
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches"
+		+ "/acl:l4/acl:tcp/acl:tcp" {
 		description
-			"add direction-initiated";
+			"Add direction-initiated";
 		leaf direction-initiated {
 			type mud:direction;
 			description
 				"This node matches based on which direction a
-				connection was initiated.  The means by which that
-				is determined is discussed in this document.";
+				connection was initiated.";
        }
 	}
 
