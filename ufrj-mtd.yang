@@ -1,0 +1,274 @@
+module ufrj-mtd{
+	yang-version 1.1;
+	namespace ufrj:labnet:yang:ufrj-mtd;
+	prefix ufrj-mtd;
+
+	import ietf-yang-types {
+		prefix yang;
+	}
+
+	import ietf-access-control-list {
+		prefix acl;
+	}
+
+	import ietf-inet-types {
+		prefix inet;
+	}
+
+	import ietf-mud {
+		prefix mud;
+	}
+
+	import ietf-acldns {
+		prefix acldns;
+	}
+
+	organization "Labnet/UFRJ";
+	contact
+		"Sávyo Morais
+
+		Email: savyo.morais@labnet.nce.ufrj.br";
+
+	description 
+		"This module is a data-model to discribe malicious network 
+		traffics";
+
+	revision 2020-02-25{
+		description "Initial revision.";
+	}
+
+	container mtd {
+		presence "Enabled for this particular MTD URL";
+		description "MTD-related information";
+		uses mtd-groupig;
+	}
+
+	grouping mtd-groupig {
+		description 
+			"This grouping is to create a set of definitions of 
+			malicious traffics of attacks and malwares";
+
+		leaf mtd-url{
+			type inet:uri;
+			mandatory true;
+			description 
+				"This is the MTD URL associated with the entry found 
+				in a MTD file";
+		}
+
+		leaf last-update {
+			type yang:date-and-time;
+			mandatory true;
+			description 
+				"This is intended to be when the current MUD file
+				was generated.  MUD managers SHOULD NOT check
+				for updates between this time plus cache validity.";
+		}
+
+		leaf mtd-signature {
+			type inet:uri;
+			description 
+				"A URI that resolves to a signature as described in 
+				this specification.";
+	   }
+
+		leaf cache-validity {
+			type uint8 {
+				range "1..168";
+			}
+
+			units "hours";
+			default "48";
+			description 
+				"The information retrieved from the MUD server is
+				valid for these many hours, after which it should be 
+				refreshed. N.B., MTD manager implementations need not
+				 discard MTD files beyond this period.";
+		}
+
+		container attack-descriptions {
+			description 
+				"This container has the descriptions of the
+				attacks	that can be performed against or from the 
+				devices";
+
+			container to-device-attacks {
+				description 
+					"The set of traffics that are performed by the 
+					infected device";
+
+				uses attack-lists;
+			}
+
+			container from-device-attacks {
+				description 
+					"The set of traffics that are performed against 
+					the infected device";
+
+				uses attack-lists;
+			}
+		}
+
+		container malware-descriptions {
+			description 
+				"This container has the descriptions of the
+				malwares that can infect the devices";
+
+			uses malwares-list;
+		}
+	}
+
+	grouping attack-lists {
+		description 
+			"GIVE A DESCRIPTION";
+
+		container attack-lists {
+			description 
+				"The access lists of the attacks focused to or from 
+				the devices";
+
+			list attack-list {
+				key "name";
+
+				description 
+					"Each entry on this list refers to an attack 
+					defined by an ACL that should present the overall
+					 network communication of the attack.";
+
+				leaf name {
+					type leafref{
+						path "/acl:acls/acl:acl/acl:name";
+					}
+
+					description
+						"The name of the ACL for this entry.";
+				}
+
+				leaf-list specific-devices {
+					type inet:uri;
+
+					description 
+						"List of MUD URLs of specific devices 
+						related with the vulnerability";
+				}
+			}
+		}
+	}
+
+	grouping malwares-list {
+		description 
+			"GIVE A DESCRIPTION";
+
+		list malwares-list {
+			key "name";
+
+			description 
+				"GIVE A DESCRIPTION";
+
+			leaf name {
+				type string;
+
+				description
+					"The name of the Malware for this entry.";
+			}
+
+			leaf-list specific-devices {
+				type inet:uri;
+
+				description 
+					"List of MUD URLs of specific devices 
+					related with the vulnerability";
+			}
+
+			container to-device-attacks {
+				description 
+					"The set of traffics that are performed by the 
+					infected device";
+
+				uses attack-lists;
+			}
+
+			container from-device-attacks {
+				description 
+					"The set of traffics that are performed against 
+					the infected device";
+
+				uses attack-lists;
+			}
+
+			container not-attack-traffics {
+				description 
+					"GIVE A DESCRIPTION";
+
+				list to-device-non-attack-traffic {
+					key "name";
+
+					leaf name {
+						type leafref {
+							path "/acl:acls/acl:acl/acl:name";
+						}
+
+						description 
+							"GIVE A DESCRIPTION";
+					}
+				}
+
+				list from-device-non-attack-traffic {
+					key "name";
+
+					leaf name {
+						type leafref {
+							path "/acl:acls/acl:acl/acl:name";
+						}
+
+						description 
+							"GIVE A DESCRIPTION";
+					}
+				}
+			}
+		}
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
+		description
+			"adding abstractions to avoid the need of IP addresses.";
+		container mtd {
+			description
+				"MTD-specific match.";
+			leaf local-networks {
+				type empty;
+				description
+					"IP addresses will match this node if they are
+					considered local addresses.  A local address may be
+					a list of locally defined prefixes and masks
+					that indicate a particular administrative scope.";
+			}
+		}
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" + "/acl:l4/acl:tcp/acl:tcp" {
+		description
+			"add direction-initiated";
+		leaf direction-initiated {
+			type mud:direction;
+			description
+				"This node matches based on which direction a
+				connection was initiated.  The means by which that
+				is determined is discussed in this document.";
+       }
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" 
+		+ "/acl:l3/acl:ipv4/acl:ipv4" {
+		description
+			"Adding domain names to matching.";
+		uses acldns:dns-matches;
+	}
+	
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" 
+		+ "/acl:l3/acl:ipv6/acl:ipv6" {
+		description
+			"Adding domain names to matching.";
+		uses acldns:dns-matches;
+	}
+}
