@@ -1,0 +1,265 @@
+[
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-udp_generic",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"UDP",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-udp_vse",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"UDP",
+		"tp_src":"any",
+		"tp_dst":"27015"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-udp_dns",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"UDP",
+		"tp_src":"any",
+		"tp_dst":"53"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-udp_plain",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"UDP",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-tcp_syn",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-tcp_ack",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-tcp_stomp",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-gre_ip",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"GRE",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-gre_eth",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"GRE",
+		"tp_src":"any",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_ddos_v4from-app_http",
+		"nw_src":"thing",
+		"nw_dst":"[targets]",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"80"
+	},
+	
+							
+	{
+		"type":"M_ATK",
+		"name":"mirai_scan_v4from-scan_23_from",
+		"nw_src":"thing",
+		"nw_dst":"[local]",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"23"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_scan_v4from-scan_2323_from",
+		"nw_src":"thing",
+		"nw_dst":"[local]",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"2323"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_scan_v4to-scan_23_to",
+		"nw_src":"[local]",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"23",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_scan_v4to-scan_2323_to",
+		"nw_src":"[local]",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"2323",
+		"tp_dst":"any"
+	},
+	
+							
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4from-infect_23_from",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"TCP",
+		"tp_src":"23",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4from-infect_2323_from",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"TCP",
+		"tp_src":"2323",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4from-scan_report_from",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"48101"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4from-dns_lookup_from",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"UDP",
+		"tp_src":"any",
+		"tp_dst":"53"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4to-infect_23_to",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"23"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4to-infect_2323_to",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"2323"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4to-scan_report_to",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"48101",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_ATK",
+		"name":"mirai_infect_v4to-dns_lookup_from",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"53",
+		"tp_dst":"any"
+	},
+	
+							
+	{
+		"type":"M_N_ATK",
+		"name":"mirai_cnc_v4from-cnc_socket_from",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"2030"
+	},
+	
+	{
+		"type":"M_N_ATK",
+		"name":"mirai_cnc_v4from-dns_lookup_from",
+		"nw_src":"thing",
+		"nw_dst":"192.168.5.1",
+		"transport":"UDP",
+		"tp_src":"any",
+		"tp_dst":"53"
+	},
+	
+	{
+		"type":"M_N_ATK",
+		"name":"mirai_cnc_v4to-cnc_socket_to",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"thing",
+		"transport":"TCP",
+		"tp_src":"2030",
+		"tp_dst":"any"
+	},
+	
+	{
+		"type":"M_N_ATK",
+		"name":"mirai_cnc_v4to-dns_lookup_to",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"thing",
+		"transport":"UDP",
+		"tp_src":"53",
+		"tp_dst":"any"
+	},
+	
+]
