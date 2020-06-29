@@ -280,15 +280,6 @@
 	}, 
 	{
 		"type":"M_ATK",
-		"name":"mirai_infect_v4from-dns_lookup_from",
-		"nw_src":"local",
-		"nw_dst":"192.168.5.1",
-		"transport":"UDP",
-		"tp_src":"any",
-		"tp_dst":"53"
-	}, 
-	{
-		"type":"M_ATK",
 		"name":"mirai_infect_v4to-infect_23_to",
 		"nw_src":"192.168.5.1",
 		"nw_dst":"local",
@@ -315,15 +306,6 @@
 		"tp_dst":"any"
 	}, 
 	{
-		"type":"M_ATK",
-		"name":"mirai_infect_v4to-dns_lookup_from",
-		"nw_src":"192.168.5.1",
-		"nw_dst":"local",
-		"transport":"TCP",
-		"tp_src":"53",
-		"tp_dst":"any"
-	}, 
-	{
 		"type":"M_N_ATK",
 		"name":"mirai_cnc_v4from-cnc_socket_from",
 		"nw_src":"local",
@@ -334,15 +316,6 @@
 	}, 
 	{
 		"type":"M_N_ATK",
-		"name":"mirai_cnc_v4from-dns_lookup_from",
-		"nw_src":"local",
-		"nw_dst":"192.168.5.1",
-		"transport":"UDP",
-		"tp_src":"any",
-		"tp_dst":"53"
-	}, 
-	{
-		"type":"M_N_ATK",
 		"name":"mirai_cnc_v4to-cnc_socket_to",
 		"nw_src":"192.168.5.1",
 		"nw_dst":"local",
@@ -350,13 +323,4 @@
 		"tp_src":"2030",
 		"tp_dst":"any"
 	}, 
-	{
-		"type":"M_N_ATK",
-		"name":"mirai_cnc_v4to-dns_lookup_to",
-		"nw_src":"192.168.5.1",
-		"nw_dst":"local",
-		"transport":"UDP",
-		"tp_src":"53",
-		"tp_dst":"any"
-	} 
 ]
