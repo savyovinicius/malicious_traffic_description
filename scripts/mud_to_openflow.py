@@ -17,39 +17,6 @@ def map_address(name):
 		print(f"[ERROR] Error locally resolving {name}")
 		return None
 
-def handle_nw(incoming,src,dst,remote_abstraction):
-	
-	r_src = ''
-	r_dst = ''
-
-	if incoming:
-		r_dst = map_address(dst)
-
-		if remote_abstraction == 'internet':
-			try:
-				r_src = socket.gethostbyname(src)
-			except:
-				print(f"[ERROR] Error resolving {src}")
-				r_src = None
-
-		else:
-			r_src = map_address(src)
-
-	else:
-		r_src = map_address(src)
-
-		if remote_abstraction == 'internet':
-			try:
-				r_dst = socket.gethostbyname(dst)
-			except Exception as e:
-				print(f"[ERROR] Error resolving {dst}")
-				r_dst = None
-			
-		else:
-			r_dst = map_address(dst)
-
-	return r_src,r_dst
-
 def handle_tp(port):
 	try:
 		return int(port)
@@ -86,15 +53,76 @@ def mount_rule(nw_src,nw_dst,transport,tp_src,tp_dst):
 
 	return rule
 
+def resolv_domains(graph):
+	mask_in = (graph['remote_abstraction'] == 'internet') & (graph['incoming'] == True)
+	mask_out = (graph['remote_abstraction'] == 'internet') & (graph['incoming'] == False)
+
+	dom_in = graph[mask_in]['src'].drop_duplicates()
+	dom_out = graph[mask_out]['dst'].drop_duplicates()
+
+	domains = pd.Series(dtype=str)
+
+	domains = domains.append(dom_in, ignore_index=True)
+	domains = domains.append(dom_out, ignore_index=True)
+	domains = domains.drop_duplicates()
+
+	for dom in domains:
+
+		mask_src = graph['src'] == dom
+		mask_dst = graph['dst'] == dom
+
+		try:
+			addr = socket.gethostbyname(dom)
+
+			graph.loc[mask_src,'src'] = addr
+			graph.loc[mask_dst,'dst'] = addr
+		except:
+			graph.drop(graph[mask_dst | mask_src].index, inplace=True)
+			print(f"[ERROR] Error resolving {dom}")
+
+	return graph
+
+def local_map(graph):
+	mask_in = (graph['remote_abstraction'] != 'internet') & (graph['incoming'] == True)
+	mask_out = (graph['remote_abstraction'] != 'internet') & (graph['incoming'] == False)
+
+	dom_in = graph[mask_in]['src'].drop_duplicates()
+	dom_out = graph[mask_out]['dst'].drop_duplicates()
+
+	names = pd.Series(dtype=str)
+
+	names = names.append(dom_in, ignore_index=True)
+	names = names.append(dom_out, ignore_index=True)
+	names = names.drop_duplicates()
+
+	for name in names:
+
+		mask_src = graph['src'] == name
+		mask_dst = graph['dst'] == name
+
+		try:
+			addr = map_address(name)
+
+			graph.loc[mask_src,'src'] = addr
+			graph.loc[mask_dst,'dst'] = addr
+		except:
+			print(f"[ERROR] Error locally resolving {name}")
+
+	return graph
+
+
 
 def main():
 	net_graph = read_net_graph()
+
+	net_graph = resolv_domains(net_graph)
+	net_graph = local_map(net_graph)
 
 	rules = []
 
 	for index,edge in net_graph.iterrows():
 
-		nw_src,nw_dst = handle_nw(edge['incoming'],edge['src'],edge['dst'],edge['remote_abstraction'])
+		nw_src,nw_dst = (edge['src'],edge['dst'])
 
 		if((nw_dst is not None) and (nw_src is not None)):
 
