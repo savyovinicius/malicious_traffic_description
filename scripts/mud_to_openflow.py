@@ -65,6 +65,8 @@ def resolv_domains(graph):
 	domains = domains.append(dom_in, ignore_index=True)
 	domains = domains.append(dom_out, ignore_index=True)
 	domains = domains.drop_duplicates()
+	
+	resolved = []
 
 	for dom in domains:
 
@@ -73,12 +75,18 @@ def resolv_domains(graph):
 
 		try:
 			addr = socket.gethostbyname(dom)
+			
+			resolved.append((dom, addr))
 
 			graph.loc[mask_src,'src'] = addr
 			graph.loc[mask_dst,'dst'] = addr
 		except:
 			graph.drop(graph[mask_dst | mask_src].index, inplace=True)
 			print(f"[ERROR] Error resolving {dom}")
+
+	aux = pd.DataFrame(resolved, columns=['domain', 'address'])
+	with open('/tmp/resolved_names.json', 'w') as file:
+		file.write(aux.to_json())
 
 	return graph
 
