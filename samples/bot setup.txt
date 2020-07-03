@@ -1,8 +1,0 @@
-bot setup:
-
-1 -> all
-2 -> samsungsmartcam
-3 -> tplinkcamera
-4 -> edge
-5 -> <NÃO EXISTE>
-6 -> www.gstatic.com

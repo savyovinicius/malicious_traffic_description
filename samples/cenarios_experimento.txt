@@ -1,4 +1,4 @@
-*********************** CENÁRIOS EXPERIMENTO ***********************
+*********************** CENÁRIOS EXPERIMENTO ************************
 
 Variáveis:
     Bot Semente -> [
@@ -6,7 +6,8 @@ Variáveis:
         1_IOT_EXPOSTO,
         1_IOT_NAO_EXPOSTO,
         EDGE,
-        EXTERNO_NÃO_EXPOSTO*
+        EXTERNO_EXPOSTO,
+        EXTERNO_NÃO_EXPOSTO
     ]
     Conjunto de regras  -> [
         ALLOW_ALL,
@@ -22,11 +23,11 @@ Variáveis:
 
     Métricas de comparação:
         Nº hosts com comunicação efetiva com o C&C
-        Nº hosts com comunicação efetiva com o loader
-        Nº hosts efetivos efetivamente escaneados
-        Nº de pacotes DDoS efetivos
+        Nº hosts efetivamente escaneados
+        Nº hosts infectados pelo loader
+        Nº de pacotes DDoS enviados
 
-*********************** PROCEDIMENTO ***********************
+*************************** PROCEDIMENTO ****************************
 
     01 Selecionar o conjunto de regras
 
@@ -49,3 +50,11 @@ Variáveis:
     10 Exportar os contadores
 
     11 Zerar os contadores
+
+***************************** BOT SETUP *****************************
+TODOS_IOT               -> all                -> all
+1_IOT_EXPOSTO           -> samsungsmartcam    -> bb17 (192.168.5.118)
+1_IOT_NAO_EXPOSTO       -> tplinkcamera       -> bb19 (192.168.5.120)
+EDGE                    -> edge               -> VM Mirai
+EXTERNO_EXPOSTO         -> <NÃO EXISTE>       -> <VERIFICAR>
+EXTERNO_NÃO_EXPOSTO     -> www.gstatic.com    -> 216.58.202.227
