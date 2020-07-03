@@ -1,0 +1,60 @@
+*********************** CENÁRIOS EXPERIMENTO ************************
+
+Variáveis:
+    Bot Semente -> [
+        TODOS_IOT,
+        1_IOT_EXPOSTO,
+        1_IOT_NAO_EXPOSTO,
+        EDGE,
+        EXTERNO_EXPOSTO,
+        EXTERNO_NÃO_EXPOSTO
+    ]
+    Conjunto de regras  -> [
+        ALLOW_ALL,
+        MUD_WHITELIST,
+        MUD_WHITELIST +  BLOCK_MTD
+    ]
+
+    Constantes:
+        Posição do C&C -> Edge
+        Posição do scanListen+loader -> Edge
+        Dispositivos IoT -> 112
+        Tempo de execução -> 30min
+
+    Métricas de comparação:
+        Nº hosts com comunicação efetiva com o C&C
+        Nº hosts efetivamente escaneados
+        Nº hosts infectados pelo loader
+        Nº de pacotes DDoS enviados
+
+*************************** PROCEDIMENTO ****************************
+
+    01 Selecionar o conjunto de regras
+
+    02 Selecionar o Bot semente
+
+    03 Liberar tráfego de rede
+
+    04 Load bots (quando aplicável)
+
+    05 Aplicar regras de rede
+
+    06 Iniciar os bots (quando aplicável)
+
+    07 Aguardar 20min
+
+    08 Rodar ataques
+
+    09 Matar os containers
+
+    10 Exportar os contadores
+
+    11 Zerar os contadores
+
+***************************** BOT SETUP *****************************
+TODOS_IOT               -> all                -> all
+1_IOT_EXPOSTO           -> samsungsmartcam    -> bb17 (192.168.5.118)
+1_IOT_NAO_EXPOSTO       -> tplinkcamera       -> bb19 (192.168.5.120)
+EDGE                    -> edge               -> VM Mirai
+EXTERNO_EXPOSTO         -> <NÃO EXISTE>       -> <VERIFICAR>
+EXTERNO_NÃO_EXPOSTO     -> www.gstatic.com    -> 216.58.202.227
