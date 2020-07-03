@@ -13435,7 +13435,8 @@ priority=1,udp,nw_dst=255.255.255.255,tp_dst=67,action=normal
 priority=1,udp,nw_src=192.168.5.1,tp_src=67,action=normal
 priority=1,udp,nw_dst=192.168.5.1,tp_dst=53,action=normal
 priority=1,udp,nw_src=192.168.5.1,tp_src=53,action=normal
-priority=0,action=droppriority=200,udp,nw_src=192.168.5.106,nw_dst=172.217.29.110,tp_dst=443,action=normal
+priority=0,action=drop
+priority=200,udp,nw_src=192.168.5.106,nw_dst=172.217.29.110,tp_dst=443,action=normal
 priority=200,udp,nw_src=192.168.5.134,nw_dst=172.217.29.110,tp_dst=443,action=normal
 priority=200,udp,nw_src=192.168.5.162,nw_dst=172.217.29.110,tp_dst=443,action=normal
 priority=200,udp,nw_src=192.168.5.190,nw_dst=172.217.29.110,tp_dst=443,action=normal
