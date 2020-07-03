@@ -33,25 +33,28 @@ Variáveis:
 
     02 Selecionar o Bot semente
 
-    03 Liberar tráfego de rede
+    03 Iniciar containers
 
-    04 Load bots (quando aplicável)
+    04 Liberar tráfego de rede
 
-    05 Aplicar regras de rede
+    05 Load bots (quando aplicável)
 
-    06 Iniciar os bots (quando aplicável)
+    06 Aplicar regras de rede
 
-    07 Aguardar 20min
+    07 Iniciar os bots (quando aplicável)
 
-    08 Rodar ataques
+    08 Aguardar 20min
 
-    09 Matar os containers
+    09 Rodar ataques
 
-    10 Exportar os contadores
+    10 Matar os containers
 
-    11 Zerar os contadores
+    11 Exportar os contadores
+
+    12 Limpar contadores
 
 ***************************** BOT SETUP *****************************
+
 TODOS_IOT               -> all                -> all
 1_IOT_EXPOSTO           -> samsungsmartcam    -> bb17 (192.168.5.118)
 1_IOT_NAO_EXPOSTO       -> tplinkcamera       -> bb19 (192.168.5.120)
