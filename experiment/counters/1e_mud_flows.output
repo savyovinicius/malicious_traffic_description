@@ -1,0 +1,16 @@
+ cookie=0x0, duration=1590.027s, table=0, n_packets=17, n_bytes=1338, idle_age=309, priority=100,udp,nw_src=192.168.5.116,nw_dst=192.168.5.1,tp_dst=53 actions=NORMAL
+ cookie=0x0, duration=1589.759s, table=0, n_packets=1191, n_bytes=64314, idle_age=203, priority=200,tcp,nw_src=192.168.5.116,nw_dst=192.168.5.1,tp_dst=23 actions=NORMAL
+ cookie=0x0, duration=1589.507s, table=0, n_packets=3711, n_bytes=247272, idle_age=314, priority=200,tcp,nw_src=192.168.5.1,nw_dst=192.168.5.116,tp_dst=23 actions=NORMAL
+ cookie=0x0, duration=1588.773s, table=0, n_packets=142, n_bytes=7668, idle_age=207, priority=200,tcp,nw_src=192.168.5.116,nw_dst=192.168.5.1,tp_dst=2323 actions=NORMAL
+ cookie=0x0, duration=1587.780s, table=0, n_packets=10, n_bytes=710, idle_age=557, priority=200,tcp,nw_src=192.168.5.116,nw_dst=192.168.5.1,tp_dst=48101 actions=NORMAL
+ cookie=0x0, duration=1587.770s, table=0, n_packets=199, n_bytes=13501, idle_age=212, priority=200,tcp,nw_src=192.168.5.116,nw_dst=192.168.5.1,tp_dst=2030 actions=NORMAL
+ cookie=0x0, duration=1587.097s, table=0, n_packets=17, n_bytes=2188, idle_age=309, priority=100,udp,nw_src=192.168.5.1,nw_dst=192.168.5.116,tp_src=53 actions=NORMAL
+ cookie=0x0, duration=1585.256s, table=0, n_packets=4262, n_bytes=3890797, idle_age=314, priority=200,tcp,nw_src=192.168.5.116,nw_dst=192.168.5.1,tp_src=23 actions=NORMAL
+ cookie=0x0, duration=1585.228s, table=0, n_packets=1191, n_bytes=71460, idle_age=203, priority=200,tcp,nw_src=192.168.5.1,nw_dst=192.168.5.116,tp_src=23 actions=NORMAL
+ cookie=0x0, duration=1585.103s, table=0, n_packets=142, n_bytes=8520, idle_age=207, priority=200,tcp,nw_src=192.168.5.1,nw_dst=192.168.5.116,tp_src=2323 actions=NORMAL
+ cookie=0x0, duration=1585.008s, table=0, n_packets=6, n_bytes=412, idle_age=557, priority=200,tcp,nw_src=192.168.5.1,nw_dst=192.168.5.116,tp_src=48101 actions=NORMAL
+ cookie=0x0, duration=1584.998s, table=0, n_packets=142, n_bytes=10008, idle_age=112, priority=200,tcp,nw_src=192.168.5.1,nw_dst=192.168.5.116,tp_src=2030 actions=NORMAL
+ cookie=0x0, duration=1584.982s, table=0, n_packets=69, n_bytes=4863, idle_age=321, priority=100,tcp,nw_src=192.168.5.116,nw_dst=192.168.5.1 actions=NORMAL
+ cookie=0x0, duration=1584.866s, table=0, n_packets=127, n_bytes=176110, idle_age=321, priority=100,tcp,nw_src=192.168.5.1,nw_dst=192.168.5.116 actions=NORMAL
+ cookie=0x0, duration=1584.460s, table=0, n_packets=149632, n_bytes=6341550, idle_age=0, priority=1,arp actions=NORMAL
+ cookie=0x0, duration=1590.200s, table=0, n_packets=193516, n_bytes=24115778, idle_age=202, priority=0 actions=drop
