@@ -1,10 +1,10 @@
-priority=300,udp,nw_dst=172.217.29.110,tp_dst=443,action=drop
-priority=300,udp,nw_dst=52.94.209.132,tp_dst=27015,action=drop
-priority=300,udp,nw_dst=130.149.17.8,tp_dst=123,action=drop
-priority=300,tcp,nw_dst=93.184.216.34,tp_dst=80,action=drop
-priority=300,tcp,nw_dst=35.174.82.237,tp_dst=11095,action=drop
-priority=300,tcp,nw_dst=34.240.169.254,tp_dst=443,action=drop
-priority=300,tcp,nw_dst=176.32.98.203,tp_dst=80,action=drop
+priority=50,udp,nw_dst=172.217.29.110,tp_dst=443,action=drop
+priority=50,udp,nw_dst=52.94.209.132,tp_dst=27015,action=drop
+priority=50,udp,nw_dst=130.149.17.8,tp_dst=123,action=drop
+priority=50,tcp,nw_dst=93.184.216.34,tp_dst=80,action=drop
+priority=50,tcp,nw_dst=35.174.82.237,tp_dst=11095,action=drop
+priority=50,tcp,nw_dst=34.240.169.254,tp_dst=443,action=drop
+priority=50,tcp,nw_dst=176.32.98.203,tp_dst=80,action=drop
 priority=100,udp,nw_src=192.168.5.100,nw_dst=108.61.73.243,tp_dst=123,action=normal
 priority=100,udp,nw_src=192.168.5.100,nw_dst=34.239.12.200,tp_dst=123,action=normal
 priority=100,tcp,nw_src=192.168.5.100,nw_dst=99.84.23.45,tp_dst=443,action=normal
