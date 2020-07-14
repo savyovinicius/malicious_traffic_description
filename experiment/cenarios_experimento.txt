@@ -59,5 +59,4 @@ TODOS_IOT               -> all                -> all
 1_IOT_EXPOSTO           -> samsungsmartcam    -> bb17 (192.168.5.118)
 1_IOT_NAO_EXPOSTO       -> tplinkcamera       -> bb19 (192.168.5.120)
 EDGE                    -> edge               -> VM Mirai
-EXTERNO_EXPOSTO         -> <NÃO EXISTE>       -> <VERIFICAR>
 EXTERNO_NÃO_EXPOSTO     -> www.gstatic.com    -> 216.58.202.227
