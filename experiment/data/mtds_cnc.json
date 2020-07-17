@@ -1,0 +1,20 @@
+[
+	{
+		"type":"M_N_ATK",
+		"name":"mirai_cnc_v4from-cnc_socket_from",
+		"nw_src":"local",
+		"nw_dst":"192.168.5.1",
+		"transport":"TCP",
+		"tp_src":"any",
+		"tp_dst":"2030"
+	},
+	{
+		"type":"M_N_ATK",
+		"name":"mirai_cnc_v4to-cnc_socket_to",
+		"nw_src":"192.168.5.1",
+		"nw_dst":"local",
+		"transport":"TCP",
+		"tp_src":"2030",
+		"tp_dst":"any"
+	}
+]
