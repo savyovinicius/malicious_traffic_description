@@ -12,4 +12,4 @@ do
 done
 
 killall sleep
-killall bash
+#killall bash

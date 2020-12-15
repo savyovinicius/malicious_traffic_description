@@ -12,3 +12,5 @@ for i in $(seq 1 $AUX)
 do
 	start_target "bb$i" &
 done
+
+sh regras.sh a
