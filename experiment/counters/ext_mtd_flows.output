@@ -1,2 +1,0 @@
- cookie=0x0, duration=1540.792s, table=0, n_packets=147131, n_bytes=8751000, idle_age=0, priority=1,arp actions=NORMAL
- cookie=0x0, duration=1546.747s, table=0, n_packets=93048, n_bytes=5582890, idle_age=109, priority=0 actions=drop
