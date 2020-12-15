@@ -367,7 +367,7 @@
 				"mirai_infect_v4to"
 			],
 			"action-to-take": "BLOCK_ALL"
-		}
+		},
 		{
 			"acl-names":
 			[
