@@ -1,0 +1,12 @@
+
+OK|192.168.5.169:23 root:root x86
+OK|192.168.5.204:23 root:root x86
+OK|192.168.5.164:23 root:root x86
+OK|192.168.5.179:23 root:root x86
+OK|192.168.5.204:23 root:root x86
+ERR|192.168.5.169:23 root:root x86|12
+OK|192.168.5.176:23 root:root x86
+OK|192.168.5.169:23 root:root x86
+OK|192.168.5.179:23 root:root x86
+ERR|192.168.5.164:23 root:root x86|18
+ERR|192.168.5.204:23 root:root x86|12
