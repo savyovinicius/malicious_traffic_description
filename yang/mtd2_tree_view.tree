@@ -1,0 +1,57 @@
+module: ufrj-mtd-2
+  +--rw mtd!
+     +--rw mtd-url                 inet:uri
+     +--rw last-update             yang:date-and-time
+     +--rw mtd-signature?          inet:uri
+     +--rw cache-validity?         uint8
+     +--rw attack-descriptions
+     |  +--rw to-device-attacks
+     |  |  +--rw attack-lists
+     |  |     +--rw attack-list* [name]
+     |  |        +--rw name                -> /acl:acls/acl/name
+     |  |        +--rw specific-devices*   inet:uri
+     |  +--rw from-device-attacks
+     |     +--rw attack-lists
+     |        +--rw attack-list* [name]
+     |           +--rw name                -> /acl:acls/acl/name
+     |           +--rw specific-devices*   inet:uri
+     +--rw malware-descriptions
+        +--rw malwares-list* [name]
+           +--rw name                   string
+           +--rw specific-devices*      inet:uri
+           +--rw critical-acl-sets* [name]
+           |  +--rw name                string
+           |  +--rw critical-acl-set*   -> /acl:acls/acl/name
+           |  +--rw action-to-take      ufrj-mtd-2:action-to-take
+           +--rw to-device-attacks
+           |  +--rw attack-lists
+           |     +--rw attack-list* [name]
+           |        +--rw name                -> /acl:acls/acl/name
+           |        +--rw specific-devices*   inet:uri
+           +--rw from-device-attacks
+           |  +--rw attack-lists
+           |     +--rw attack-list* [name]
+           |        +--rw name                -> /acl:acls/acl/name
+           |        +--rw specific-devices*   inet:uri
+           +--rw not-attack-traffic
+              +--rw to-device-not-attack-traffic* [name]
+              |  +--rw name    -> /acl:acls/acl/name
+              +--rw from-device-not-attack-traffic* [name]
+                 +--rw name    -> /acl:acls/acl/name
+
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
+    +--rw mtd
+       +--rw local-networks?   empty
+  augment /acl:acls/acl:acl/acl:aces/acl:ace:
+    +--rw risk?   uint8
+  augment /acl:acls/acl:acl:
+    +--rw risk-threshold?    uint8
+    +--rw alert-threshold?   uint8
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l4/acl:tcp/acl:tcp:
+    +--rw direction-initiated?   mud:direction
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3/acl:ipv4/acl:ipv4:
+    +--rw src-dnsname?   inet:host
+    +--rw dst-dnsname?   inet:host
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3/acl:ipv6/acl:ipv6:
+    +--rw src-dnsname?   inet:host
+    +--rw dst-dnsname?   inet:host

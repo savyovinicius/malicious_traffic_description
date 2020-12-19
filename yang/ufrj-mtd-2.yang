@@ -1,0 +1,380 @@
+module ufrj-mtd-2{
+	yang-version 1.1;
+	namespace ufrj:labnet:yang:ufrj-mtd-2;
+	prefix ufrj-mtd-2;
+
+	import ietf-yang-types {
+		prefix yang;
+	}
+
+	import ietf-access-control-list {
+		prefix acl;
+	}
+
+	import ietf-inet-types {
+		prefix inet;
+	}
+
+	import ietf-mud {
+		prefix mud;
+	}
+
+	import ietf-acldns {
+		prefix acldns;
+	}
+
+	organization "Labnet/UFRJ";
+	contact
+		"Sávyo Morais
+
+		Email: savyo.morais@labnet.nce.ufrj.br";
+
+	description 
+		"This module is a data-model to discribe malicious network 
+		traffic";
+
+	revision 2020-12-01{
+		description "Initial revision.";
+	}
+
+	typedef action-to-take {
+		type enumeration {
+			enum "alert" {
+				value 0;
+				description
+					"Alert user about risky exposure to the malware";
+			}
+			enum "block-not-attack" {
+				value 1;
+				description
+					"Block malware related not-attack-traffic risky 
+					exposures and attack-traffic alert exposures";
+			}
+			enum "block-attack" {
+				value 2;
+				description
+					"Block malware related attack-traffic exposures
+					and alert users about the block";
+			}
+			enum "block-all" {
+				value 3;
+				description
+					"Block all malware related exposures and alert 
+					users about the block";
+			}
+		}
+	}
+
+	container mtd {
+		presence "Enabled for this particular MTD URL";
+		description "MTD-related information";
+		uses mtd-groupig;
+	}
+
+	grouping mtd-groupig {
+		description 
+			"This grouping is to create a set of definitions of 
+			malicious traffic of attacks and malwares";
+
+		leaf mtd-url{
+			type inet:uri;
+			mandatory true;
+			description 
+				"This is the MTD URL associated with the entry found 
+				in a MTD file";
+		}
+
+		leaf last-update {
+			type yang:date-and-time;
+			mandatory true;
+			description 
+				"This is intended to be when the current MTD file
+				was generated.  MTD managers SHOULD NOT check
+				for updates between this time plus cache validity.";
+		}
+
+		leaf mtd-signature {
+			type inet:uri;
+			description 
+				"A URI that resolves to a signature to verify the 
+				autenticity of this file.";
+	   }
+
+		leaf cache-validity {
+			type uint8 {
+				range "1..168";
+			}
+
+			units "hours";
+			default "48";
+			description 
+				"The information retrieved from the MTD server is
+				valid for these many hours, after which it should be 
+				refreshed. N.B., MTD manager implementations need not
+				 discard MTD files beyond this period.";
+		}
+
+		container attack-descriptions {
+			description 
+				"This container has the descriptions of the
+				attacks	that can be performed against or from the IoT
+				 devices";
+
+			container to-device-attacks {
+				description 
+					"The set of malicious traffic performed by the 
+					infected device";
+
+				uses attack-lists;
+			}
+
+			container from-device-attacks {
+				description 
+					"The set of malicious traffic performed 
+					addressing the target device";
+
+				uses attack-lists;
+			}
+		}
+
+		container malware-descriptions {
+			description 
+				"This container has the descriptions of the
+				malwares that can infect the devices";
+
+			uses malwares-list;
+		}
+	}
+
+	grouping attack-lists {
+		description 
+			"A grouping for acess lists of malicious traffic related 
+			in a context of attacks.";
+
+		container attack-lists {
+			description 
+				"The access lists of the attack's malicious traffic 
+				targeting or departing from the local IoT devices,";
+
+			list attack-list {
+				key "name";
+
+				description 
+					"Each entry on this list refers to an malicious 
+					traffic defined by an ACL that should present the
+					 overall network communication of the attack.";
+
+				leaf name {
+					type leafref{
+						path "/acl:acls/acl:acl/acl:name";
+					}
+
+					description
+						"The name of the ACL for this entry.";
+				}
+
+				leaf-list specific-devices {
+					type inet:uri;
+
+					description 
+						"List of MUD URLs of specific devices 
+						related with the vulnerability";
+				}
+			}
+		}
+	}
+
+	grouping malwares-list {
+		description 
+			"A grouping for acess lists of malicious traffic related 
+			in a context of malwares.";
+
+		list malwares-list {
+			key "name";
+
+			description 
+				"The access lists of the malware's malicious traffic 
+				targeting or departing from the local IoT devices,";
+
+			leaf name {
+				type string;
+
+				description
+					"The name of the Malware for each entry.";
+			}
+
+			leaf-list specific-devices {
+				type inet:uri;
+
+				description 
+					"List of MUD URLs of specific devices 
+					related with the vulnerability";
+			}
+
+			list critical-acl-sets{
+				key "name";
+
+				description
+					"Each list entry represents a malware's critical set of
+					risky ACL exposures, followed by the action to take 
+					when a critical set be detected.";
+
+				leaf name {
+					type string;
+
+					description
+						"The critical ACL set name";
+				}
+
+				leaf-list critical-acl-set {
+					type leafref{
+						path "/acl:acls/acl:acl/acl:name";
+					}
+
+					description
+						"[[TO DO]]";
+				}
+
+				leaf action-to-take {
+					type ufrj-mtd-2:action-to-take;
+					mandatory true;
+					description
+						"[[TO DO]]";
+				}
+			}
+
+			container to-device-attacks {
+				description 
+					"The set of attack traffic performed by the 
+					infected IoT device";
+
+				uses attack-lists;
+			}
+
+			container from-device-attacks {
+				description 
+					"The set of attack traffic performed targeting 
+					the infected IoT device";
+
+				uses attack-lists;
+			}
+
+			container not-attack-traffic {
+				description 
+					"Container to group all not attack traffic 
+					related to the malware";
+
+				list to-device-not-attack-traffic {
+					key "name";
+
+					leaf name {
+						type leafref {
+							path "/acl:acls/acl:acl/acl:name";
+						}
+
+						description 
+							"The set of not attack traffic 
+							related to the malware performed by the 
+							infected IoT device";
+					}
+				}
+
+				list from-device-not-attack-traffic {
+					key "name";
+
+					leaf name {
+						type leafref {
+							path "/acl:acls/acl:acl/acl:name";
+						}
+
+						description 
+							"The set of not attack traffic 
+							related to the malware trageting the 
+							infected IoT device";
+					}
+				}
+			}
+		}
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
+		description
+			"adding abstraction to avoid the need of IP addresses.";
+		container mtd {
+			description
+				"MTD-specific match.";
+			leaf local-networks {
+				type empty;
+				description
+					"IP addresses will match this node if they are
+					considered local addresses.  A local address may be
+					a list of locally defined prefixes and masks
+					that indicate a particular administrative scope.";
+			}
+		}
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace" {
+		description
+			"Add the risk level information associated to the ACE";
+		leaf risk {
+			type uint8;
+			default "1";
+			description
+				"Represents risk level of a device being exploited
+				when exposes the device through traffic matching the 
+				described ACE.";
+		}
+
+	}
+
+	augment "/acl:acls/acl:acl" {
+		description
+			"Add an acceptable risk threshold and an alert risk threshold to the ACL";
+		leaf risk-threshold {
+			type uint8;
+			default "1";
+			description
+				"The acceptable risk threshold represents the minimum 
+				risk value for the exposure be considered a risk.
+				The actual risk of an ACL is calculated by the sum of 
+				all the ACEs that matched on the INXU module analysis";
+		}
+
+		leaf alert-threshold {
+			type uint8;
+			default "1";
+			description
+				"The acceptable alert threshold represents the minimum 
+				risk value for the exposure trigger an alert.
+				The actual risk of an ACL is calculated by the sum of 
+				all the ACEs that matched on the INXU module analysis";
+		}
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches"
+		+ "/acl:l4/acl:tcp/acl:tcp" {
+		description
+			"Add direction-initiated";
+		leaf direction-initiated {
+			type mud:direction;
+			description
+				"This node matches based on which direction a
+				connection was initiated.";
+       }
+	}
+
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" 
+		+ "/acl:l3/acl:ipv4/acl:ipv4" {
+		description
+			"Adding domain names to matching.";
+		uses acldns:dns-matches;
+	}
+	
+	augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" 
+		+ "/acl:l3/acl:ipv6/acl:ipv6" {
+		description
+			"Adding domain names to matching.";
+		uses acldns:dns-matches;
+	}
+}
