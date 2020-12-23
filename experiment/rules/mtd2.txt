@@ -1,3 +1,10 @@
+priority=50,udp,nw_dst=172.217.29.110,tp_dst=443,action=drop
+priority=50,udp,nw_dst=52.94.209.132,tp_dst=27015,action=drop
+priority=50,udp,nw_dst=130.149.17.8,tp_dst=123,action=drop
+priority=50,tcp,nw_dst=93.184.216.34,tp_dst=80,action=drop
+priority=50,tcp,nw_dst=35.174.82.237,tp_dst=11095,action=drop
+priority=50,tcp,nw_dst=34.240.169.254,tp_dst=443,action=drop
+priority=50,tcp,nw_dst=176.32.98.203,tp_dst=80,action=drop
 priority=200,tcp,nw_src=192.168.5.109,nw_dst=192.168.5.100,tp_dst=23,action=drop
 priority=200,tcp,nw_src=192.168.5.109,nw_dst=192.168.5.1,tp_dst=23,action=drop
 priority=200,tcp,nw_src=192.168.5.109,nw_dst=192.168.5.101,tp_dst=23,action=drop
